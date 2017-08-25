@@ -1,5 +1,5 @@
 /*
- * https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=999
+ * https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=999
  * 10058 - Jimmi's Riddles
  */
 package regular_expression;
