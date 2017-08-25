@@ -35,6 +35,7 @@ public class Q10058_2 {
         return (new String (lin, 0, lg));
     }
 	
+	private static final int MAX = 1000;
 	private static final String VERB = "(:?hate|love|know|like)[s]?";
 	private static final String NOUN = "tom|jerry|goofy|mickey|jimmy|dog|cat|mouse";
 	private static final String ARTICLE = "a|the";
@@ -68,6 +69,7 @@ public class Q10058_2 {
 		boolean result = false;
 		if(input != null){
 			result = input.trim().matches(ARTICLE);
+			
 		}
 		return result;
 	}
@@ -76,14 +78,27 @@ public class Q10058_2 {
 		boolean result = false;
 		if(input != null){
 			String[] words = input.split(SPACE);
+			if(words.length == 1){
+				result = isNoun(words[0]);
+			}else if(words.length > 1){
+				result = isArticle(words[0]) && isNoun(words[1]);
+			}
+			
 		}
 		return result;
 	}
+	
+	
 	
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Q10058_2 solver = new Q10058_2();
+		String input = null;
+		while((input = Q10058_2.ReadLn(MAX)) != null){
+			System.out.println(input);
+		}
 
 	}
 	
