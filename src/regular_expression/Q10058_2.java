@@ -76,23 +76,17 @@ public class Q10058_2 {
 		boolean result = false;
 		if(input != null){
 			input = input.trim();
-			Matcher matcher = LAST_STATEMENT_CONJUNCTION.matcher(input);
-			if(matcher.find()){
-				String frontPart = input.substring(0, matcher.start());
-				String endPart = input.substring(matcher.start());
-				
-//				System.out.println("the end part is: >>>>>>>>>>>>>>>" + endPart);
-				Matcher conjunctionMatcher = PATTERN_STATEMENT_CONJUNCTION.matcher(endPart);
-				if(conjunctionMatcher.find()){
-					endPart = endPart.substring(conjunctionMatcher.end());
-				}
-				 
-//				System.out.println("the front: "+frontPart);
-//				System.out.println("end front: "+endPart);
+			String conjunction = ",";
+			
+			int conjunctionPos = input.lastIndexOf(conjunction);
+			if(conjunctionPos != -1){
+				String frontPart = input.substring(0, conjunctionPos).trim();
+				String endPart = input.substring(conjunctionPos + conjunction.length()).trim();
 				result = isAction(endPart) && isStatement(frontPart);
 			}else{
 				result = isAction(input);
 			}
+			
 		}
 		return result;
 	}
