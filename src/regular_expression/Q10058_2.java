@@ -36,14 +36,14 @@ public class Q10058_2 {
     }
 	
 	private static final int MAX = 1000;
-	private static final String VERB = "(:?hate|love|know|like)[s]?";
-	private static final String NOUN = "tom|jerry|goofy|mickey|jimmy|dog|cat|mouse";
-	private static final String ARTICLE = "a|the";
+	private static final String VERB = "\\b(:?hate|love|know|like)[s]*\\b";
+	private static final String NOUN = "\\b(?:tom|jerry|goofy|mickey|jimmy|dog|cat|mouse)\\b";
+	private static final String ARTICLE = "\\b(?:a|the)\\b";
 	private static final String SPACE = "\\s+";
 	private static final String CORRECT = "YES I WILL";
 	private static final String INCORRECT = "NO I WON'T";
 	private static final String CONJUNCTION = " and ";
-	private static final Pattern LAST_CONJUNCTION = Pattern.compile("\\sand\\s\\w+\\Z");
+	private static final Pattern LAST_CONJUNCTION = Pattern.compile("\\band\\b\\w+\\Z");
 	private static final Pattern PATTERN_VERB = Pattern.compile(VERB);
 	private static final String STATEMENT_CONJUCNTION = "\\s?,\\s?";
 	private static final Pattern PATTERN_STATEMENT_CONJUNCTION = Pattern.compile(STATEMENT_CONJUCNTION);
@@ -72,9 +72,10 @@ public class Q10058_2 {
 	}
 	
 	public boolean isStatement(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			Matcher matcher = LAST_STATEMENT_CONJUNCTION.matcher(input);
 			if(matcher.find()){
 				String frontPart = input.substring(0, matcher.start());
@@ -97,9 +98,10 @@ public class Q10058_2 {
 	}
 	
 	public boolean isAction(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			Matcher verbMatcher = PATTERN_VERB.matcher(input);
 			if(verbMatcher.find()){
 				String part1 = input.substring(0, verbMatcher.start());
@@ -115,9 +117,10 @@ public class Q10058_2 {
 	
 	
 	public boolean isActiveList(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			if(isActor(input)){
 				return true;
 			}else{
@@ -139,27 +142,30 @@ public class Q10058_2 {
 	}
 	
 	private boolean isVerb(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			result = input.matches(VERB);
 		}
 		return result;
 	}
 	
 	private boolean isNoun(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			result = input.matches(NOUN);
 		}
 		return result;
 	}
 	
 	private boolean isArticle(String input){
-		input = input.trim();
+		
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			result = input.matches(ARTICLE);
 			
 		}
@@ -167,10 +173,9 @@ public class Q10058_2 {
 	}
 	
 	private boolean isActor(String input){
-		
-		input = input.trim();
 		boolean result = false;
 		if(input != null){
+			input = input.trim();
 			String[] words = input.split(SPACE);
 			if(words.length == 1){
 				result = isNoun(words[0]);
