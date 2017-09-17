@@ -36,19 +36,13 @@ public class Q10058_2 {
     }
 	
 	private static final int MAX = 1000;
-	private static final String VERB = "\\b(:?hate|love|know|like)[s]*\\b";
+	private static final String VERB = "\\b(:?hate|love|know|like)[s]?\\b";
 	private static final String NOUN = "\\b(?:tom|jerry|goofy|mickey|jimmy|dog|cat|mouse)\\b";
 	private static final String ARTICLE = "\\b(?:a|the)\\b";
 	private static final String SPACE = "\\s+";
 	private static final String CORRECT = "YES I WILL";
 	private static final String INCORRECT = "NO I WON'T";
-	private static final String CONJUNCTION = " and ";
-	private static final Pattern LAST_CONJUNCTION = Pattern.compile("\\band\\b\\w+\\Z");
 	private static final Pattern PATTERN_VERB = Pattern.compile(VERB);
-	private static final String STATEMENT_CONJUCNTION = "\\s?,\\s?";
-	private static final Pattern PATTERN_STATEMENT_CONJUNCTION = Pattern.compile(STATEMENT_CONJUCNTION);
-	private static final Pattern LAST_STATEMENT_CONJUNCTION = Pattern.compile("\\s?,\\s?[\\w\\s]+\\Z");
-			
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -115,32 +109,20 @@ public class Q10058_2 {
 		boolean result = false;
 		if(input != null){
 			input = input.trim();
-			if(isActor(input)){
-				return true;
-			}else{
-				Matcher matcher = LAST_CONJUNCTION.matcher(input);
-				if(matcher.find()){
-					String trailingPart = input.substring(matcher.start() + CONJUNCTION.length());
-					if(isActor(trailingPart)){
-						String remaining = input.substring(0, matcher.start());
-						return isActiveList(remaining);
-					}else{
-						return false;
-					}
+			String conjunction = "and";
+			int lastConjunctionPos = input.lastIndexOf(conjunction);
+			if(lastConjunctionPos != -1){
+				String actorPart = input.substring(lastConjunctionPos + conjunction.length()).trim();
+				if(isActor(actorPart)){
+					String activeListPart = input.substring(0, lastConjunctionPos).trim();
+					return isActiveList(activeListPart);
 				}else{
 					return false;
 				}
+			}else{
+				return isActor(input);
 			}
-		}
-		return result;
-	}
-	
-	private boolean isVerb(String input){
-		
-		boolean result = false;
-		if(input != null){
-			input = input.trim();
-			result = input.matches(VERB);
+			
 		}
 		return result;
 	}
@@ -179,10 +161,5 @@ public class Q10058_2 {
 		}
 		return result;
 	}
-	
-
-
-	
-	
 
 }
