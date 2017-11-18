@@ -68,7 +68,7 @@ public class Q11362 {
 		});
 	}
 	
-	private boolean checkIfThereisPrefix(){
+	private boolean checkIfThereIsPrefix(){
 		sortByLength();
 		int length = this.phoneNumbers.size();
 		for(int i=0; i<length; i++){
@@ -86,7 +86,7 @@ public class Q11362 {
 	}
 	
 	private void getResult(){
-		if(checkIfThereisPrefix()){
+		if(checkIfThereIsPrefix()){
 			System.out.println(NOT_CONSISTENT);
 		}else{
 			System.out.println(CONSISTENT);
